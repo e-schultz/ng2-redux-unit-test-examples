@@ -17,7 +17,7 @@
     "build:jit": "cross-env NODE_ENV=production webpack",
     "clean": "rimraf dist/",
     "cover": "istanbul report text text-summary",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server -d --inline --hot --progress --no-info",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server -d --inline --hot --progress --no-info --host 127.0.0.1",
     "lint": "npm run lint-ts && npm run lint-js && npm run lint-css",
     "lint-ts": "tslint './src/**/*.ts'",
     "lint-js": "eslint '**/*.js' --ignore-path .gitignore",
@@ -37,7 +37,9 @@
     "url": "https://github.com/rangle/angular2-redux-starter/issues"
   },
   "dependencies": {
-    "http-server": "^0.9.0"
+    "http-server": "^0.9.0",
+    "ng2-redux": "^4.1.0",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "@angular/common": "^2.1.1",
