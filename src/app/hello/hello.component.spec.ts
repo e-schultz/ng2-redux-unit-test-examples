@@ -53,4 +53,34 @@ describe('the hello component', () => {
     expect(compiled.querySelectorAll('li')[2].textContent).toContain('xy - 3');
 
   }));
+
+  it('should respond to changes', () => {
+    let reducer = (state, action) => {
+      switch (action.type) {
+        case 'SET_X':
+          return Object.assign({}, state, { x: action.payload });
+        case 'SET_Y':
+          return Object.assign({}, state, { y: action.payload });
+        default:
+          return state;
+      }
+    };
+
+    let store = provideRedux({ message: 'Yup', x: 1, y: 2 }, reducer);
+    let fixture = TestBed.createComponent(HelloComponent);
+    fixture.detectChanges();
+    let compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelectorAll('li')[0].textContent).toContain('x - 1');
+    expect(compiled.querySelectorAll('li')[1].textContent).toContain('y - 2');
+    expect(compiled.querySelectorAll('li')[2].textContent).toContain('xy - 3');
+
+    store.dispatch({ type: 'SET_X', payload: 2 });
+    store.dispatch({ type: 'SET_Y', payload: 3 });
+
+    fixture.detectChanges();
+
+    expect(compiled.querySelectorAll('li')[0].textContent).toContain('x - 2');
+    expect(compiled.querySelectorAll('li')[1].textContent).toContain('y - 3');
+    expect(compiled.querySelectorAll('li')[2].textContent).toContain('xy - 5');
+  });
 });
